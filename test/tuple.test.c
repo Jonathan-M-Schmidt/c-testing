@@ -79,6 +79,16 @@ int testMultiply() {
     );
 }
 
+int testDivision() {
+    struct Tuple tuple = createTuple(1, -2, 3, -4);
+    struct Tuple divided = divide(tuple, 2);
+    struct Tuple res = createTuple(0.5, -1, 1.5, -2);
+    expect(
+        equals(res, divided),
+        "divides correct"
+    );
+}
+
 int main() {
     runTestSuit(
         "should create correct tuples\n",
@@ -103,6 +113,10 @@ int main() {
     runTestSuit(
         "Multiply tuples\n",
         testMultiply
+    );
+    runTestSuit(
+        "Divide tuples\n",
+        testDivision
     );
 
     finishTests();

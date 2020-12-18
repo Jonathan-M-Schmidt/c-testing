@@ -71,3 +71,12 @@ struct Tuple multiply(struct Tuple a, float num) {
         a.w * num
     );
 }
+
+struct Tuple divide(struct Tuple a, float num) {
+    return createTuple(
+        a.x / num,
+        a.y / num,
+        a.z / num,
+        a.w / num
+    );
+}
