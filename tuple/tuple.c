@@ -62,3 +62,12 @@ struct Tuple negate(struct Tuple a) {
         -a.w
     );
 }
+
+struct Tuple multiply(struct Tuple a, float num) {
+    return createTuple(
+        a.x * num,
+        a.y * num,
+        a.z * num,
+        a.w * num
+    );
+}

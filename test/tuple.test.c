@@ -69,6 +69,16 @@ int testNegation() {
     );
 }
 
+int testMultiply() {
+    struct Tuple tuple = createTuple(1, -2, 3, -4);
+    struct Tuple multiplied = multiply(tuple, 3.5);
+    struct Tuple res = createTuple(3.5, -7, 10.5, -14);
+    expect(
+        equals(res, multiplied),
+        "multiplies correct"
+    );
+}
+
 int main() {
     runTestSuit(
         "should create correct tuples\n",
@@ -89,6 +99,10 @@ int main() {
     runTestSuit(
         "Negating vectors\n",
         testNegation
+    );
+    runTestSuit(
+        "Multiply tuples\n",
+        testMultiply
     );
 
     finishTests();
