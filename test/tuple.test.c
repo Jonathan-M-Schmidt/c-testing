@@ -89,6 +89,29 @@ int testDivision() {
     );
 }
 
+int testMagnitude() {
+    struct Tuple vector1 = createVector(1, 0, 0);
+    float mag1 = magnitude(vector1);
+    int res1 = 1;
+    expect( mag1 == res1, "wrong magnitude mag1" );
+    struct Tuple vector2 = createVector(0, 1, 0);
+    float mag2 = magnitude(vector2);
+    int res2 = 1;
+    expect( mag2 == res2, "wrong magnitude mag2" );
+    struct Tuple vector3 = createVector(0, 0, 1);
+    float mag3 = magnitude(vector3);
+    int res3 = 1;
+    expect( mag3 == res3, "wrong magnitude mag3" );
+    struct Tuple vector4 = createVector(1, 2, 3);
+    float mag4 = magnitude(vector4);
+    float res4 = sqrt(14);
+    expect( mag4 == res4, "wrong magnitude mag4" );
+    struct Tuple vector5 = createVector(-1, -2, -3);
+    float mag5 = magnitude(vector5);
+    float res5 = sqrt(14);
+    expect( mag5 == res5, "wrong magnitude mag5" );
+}
+
 int main() {
     runTestSuit(
         "should create correct tuples\n",
@@ -117,6 +140,10 @@ int main() {
     runTestSuit(
         "Divide tuples\n",
         testDivision
+    );
+    runTestSuit(
+        "Create Magnitude for vectors\n",
+        testMagnitude
     );
 
     finishTests();
