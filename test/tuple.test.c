@@ -132,6 +132,17 @@ int testDot() {
     expect(d == res, "create dot product");
 }
 
+int testCross() {
+    struct Tuple vector1 = createVector(1, 2, 3);
+    struct Tuple vector2 = createVector(2, 3, 4);
+    struct Tuple c1 = cross(vector1, vector2);
+    struct Tuple res1 = createVector(-1, 2, -1);
+    struct Tuple c2 = cross(vector2, vector1);
+    struct Tuple res2 = createVector(1, -2, 1);
+    expect(equals(res1, c1), "creates cross for res1");
+    expect(equals(res2, c2), "creates cross for res2");
+};
+
 int main() {
     runTestSuit(
         "should create correct tuples\n",
@@ -172,6 +183,10 @@ int main() {
     runTestSuit(
         "Create dot product of two tuples\n",
         testDot
+    );
+    runTestSuit(
+        "Create cross product of two vectors\n",
+        testCross
     );
 
     finishTests();
