@@ -90,3 +90,13 @@ float magnitude(struct Tuple a) {
     float powW = pow(a.w, 2);
     return sqrt(powX + powY + powZ + powW);
 }
+
+struct Tuple normalize(struct Tuple a) {
+    float mag = magnitude(a);
+    return createTuple(
+        a.x / mag,
+        a.y / mag,
+        a.z / mag,
+        a.w / mag
+    );
+}

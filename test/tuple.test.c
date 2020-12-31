@@ -112,6 +112,18 @@ int testMagnitude() {
     expect( mag5 == res5, "wrong magnitude mag5" );
 }
 
+int testNormalize() {
+    struct Tuple vector1 = createVector(4, 0, 0);
+    struct Tuple res1 = createVector(1, 0, 0);
+    struct Tuple normalized = normalize(vector1);
+    expect(equals(normalized, res1), "normalize vector1"); 
+    struct Tuple vector2 = createVector(1, 2, 3);
+    // struct Tuple res2 = createVector(0.26726, 0.53452, 0.80178);
+    struct Tuple res2 = createVector(1/sqrt(14), 2/sqrt(14), 3/sqrt(14));
+    struct Tuple normalized2 = normalize(vector2);
+    expect(equals(normalized2, res2), "normalize vector2"); 
+}
+
 int main() {
     runTestSuit(
         "should create correct tuples\n",
@@ -144,6 +156,10 @@ int main() {
     runTestSuit(
         "Create Magnitude for vectors\n",
         testMagnitude
+    );
+    runTestSuit(
+        "Create normalized vectors\n",
+        testNormalize
     );
 
     finishTests();
