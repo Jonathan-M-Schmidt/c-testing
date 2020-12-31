@@ -31,10 +31,11 @@ bool isVector(struct Tuple tuple) {
 }
 
 bool equals(struct Tuple a, struct Tuple b) {
-    return a.x == b.x  
-        && a.y == b.y
-        && a.z == b.z
-        && a.w == b.w;
+    const float EPSILON = 0.00001;
+    return fabs(a.x - b.x) < EPSILON  
+        && fabs(a.y - b.y) < EPSILON
+        && fabs(a.z - b.z) < EPSILON
+        && fabs(a.w - b.w) < EPSILON;
 }
 
 struct Tuple add(struct Tuple a, struct Tuple b){
