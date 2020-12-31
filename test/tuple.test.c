@@ -124,6 +124,14 @@ int testNormalize() {
     expect(equals(normalized2, res2), "normalize vector2"); 
 }
 
+int testDot() {
+    struct Tuple vector1 = createVector(1, 2, 3);
+    struct Tuple vector2 = createVector(2, 3, 4);
+    float d = dot(vector1, vector2);
+    float res = 20;
+    expect(d == res, "create dot product");
+}
+
 int main() {
     runTestSuit(
         "should create correct tuples\n",
@@ -160,6 +168,10 @@ int main() {
     runTestSuit(
         "Create normalized vectors\n",
         testNormalize
+    );
+    runTestSuit(
+        "Create dot product of two tuples\n",
+        testDot
     );
 
     finishTests();

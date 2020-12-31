@@ -107,3 +107,10 @@ struct Tuple normalize(struct Tuple a) {
         a.w / mag
     );
 }
+
+float dot(struct Tuple a, struct Tuple b) {
+    return a.x * b.x +
+        a.y * b.y +
+        a.z * b.z +
+        a.w * b.w;
+};
