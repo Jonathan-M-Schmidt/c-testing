@@ -10,6 +10,13 @@ struct Tuple {
     float w;
 };
 
+void printTuple( struct Tuple t) {
+    printf("  x: %f\n", t.x );
+    printf("  y: %f\n", t.y );
+    printf("  z: %f\n", t.z );
+    printf("  w: %f\n", t.w );
+};
+
 struct Tuple createTuple(float x, float y, float z, float w) {
     struct Tuple tuple = { x, y, z, w };
     return tuple;
