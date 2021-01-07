@@ -1,43 +1,46 @@
+#ifndef TUPLE_HEADER
+#define TUPLE_HEADER
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
 
-struct Tuple {
+typedef struct Tuple {
     float x;
     float y;
     float z;
     float w;
-};
+} Tuple;
 
-void printTuple( struct Tuple t) {
+void printTuple( Tuple t) {
     printf("  x: %f\n", t.x );
     printf("  y: %f\n", t.y );
     printf("  z: %f\n", t.z );
     printf("  w: %f\n", t.w );
 };
 
-struct Tuple createTuple(float x, float y, float z, float w) {
-    struct Tuple tuple = { x, y, z, w };
+Tuple createTuple(float x, float y, float z, float w) {
+    Tuple tuple = { x, y, z, w };
     return tuple;
 }
 
-struct Tuple createPoint(float x, float y, float z){
+Tuple createPoint(float x, float y, float z){
     return createTuple(x, y, z, 1);
 }
 
-struct Tuple createVector(float x, float y, float z){
+Tuple createVector(float x, float y, float z){
     return createTuple(x, y, z, 0);
 }
 
-bool isPoint(struct Tuple tuple) {
+bool isPoint(Tuple tuple) {
     return tuple.w == 1;
 }
-bool isVector(struct Tuple tuple) {
+bool isVector(Tuple tuple) {
     return tuple.w == 0;
 }
 
-bool equals(struct Tuple a, struct Tuple b) {
+bool equals(Tuple a, Tuple b) {
     const float EPSILON = 0.00001;
     return fabs(a.x - b.x) < EPSILON  
         && fabs(a.y - b.y) < EPSILON
@@ -45,7 +48,7 @@ bool equals(struct Tuple a, struct Tuple b) {
         && fabs(a.w - b.w) < EPSILON;
 }
 
-struct Tuple add(struct Tuple a, struct Tuple b){
+Tuple add(Tuple a, Tuple b){
     return createTuple(
         a.x + b.x,
         a.y + b.y,
@@ -54,7 +57,7 @@ struct Tuple add(struct Tuple a, struct Tuple b){
     );
 };
 
-struct Tuple subtract(struct Tuple a, struct Tuple b){
+Tuple subtract(Tuple a, Tuple b){
     return createTuple(
         a.x - b.x,
         a.y - b.y,
@@ -63,7 +66,7 @@ struct Tuple subtract(struct Tuple a, struct Tuple b){
     );
 };
 
-struct Tuple negate(struct Tuple a) {
+Tuple negate(Tuple a) {
     return createTuple(
         -a.x,
         -a.y,
@@ -72,7 +75,7 @@ struct Tuple negate(struct Tuple a) {
     );
 }
 
-struct Tuple multiply(struct Tuple a, float num) {
+Tuple multiply(Tuple a, float num) {
     return createTuple(
         a.x * num,
         a.y * num,
@@ -81,7 +84,7 @@ struct Tuple multiply(struct Tuple a, float num) {
     );
 }
 
-struct Tuple divide(struct Tuple a, float num) {
+Tuple divide(Tuple a, float num) {
     return createTuple(
         a.x / num,
         a.y / num,
@@ -90,7 +93,7 @@ struct Tuple divide(struct Tuple a, float num) {
     );
 }
 
-float magnitude(struct Tuple a) {
+float magnitude(Tuple a) {
     float powX = pow(a.x, 2);
     float powY = pow(a.y, 2);
     float powZ = pow(a.z, 2);
@@ -98,7 +101,7 @@ float magnitude(struct Tuple a) {
     return sqrt(powX + powY + powZ + powW);
 }
 
-struct Tuple normalize(struct Tuple a) {
+Tuple normalize(Tuple a) {
     float mag = magnitude(a);
     return createTuple(
         a.x / mag,
@@ -108,17 +111,19 @@ struct Tuple normalize(struct Tuple a) {
     );
 }
 
-float dot(struct Tuple a, struct Tuple b) {
+float dot(Tuple a, Tuple b) {
     return a.x * b.x +
         a.y * b.y +
         a.z * b.z +
         a.w * b.w;
 };
 
-struct Tuple cross(struct Tuple a, struct Tuple b) {
+Tuple cross(Tuple a, Tuple b) {
     return createVector(
         a.y * b.z - a.z * b.y,
         a.z * b.x - a.x * b.z,
         a.x * b.y - a.y * b.x
     );
 };
+
+#endif

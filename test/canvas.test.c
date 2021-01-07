@@ -39,7 +39,6 @@ int testPpmHeaderCreation() {
         strcat(ppm, temp);
     }
 
-    printf("ppm text string: \n%s\n", ppm);
     fclose(fptr);
 
     expect(strcmp(ppm,"P3\n5 3\n255\n\n") == 0, "creates correct header");
@@ -66,7 +65,6 @@ int testPpmPixelDataCreation() {
 
     char expected[] = "P3\n5 3\n255\n\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 \n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 \n";
 
-    printf("ppm text string: \n%s\n", ppm);
     fclose(fptr);
 
     expect(strcmp(ppm, expected) == 0, "creates correct pixel data");
