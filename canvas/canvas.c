@@ -8,6 +8,7 @@
 #include <math.h>
 #include "../color/color.c"
 #include "../helpers/clamp.c"
+#include "../helpers/len_int.c"
 
 typedef struct Canvas {
     int width;
@@ -39,6 +40,17 @@ Color pixelAt(Canvas *canvas, int x, int y) {
     return color;
 }
 
+
+int printColorToFile(FILE *file, int color_value, int char_count ) {
+    if ( char_count + len_int(color_value) + 1 < 70 ) {
+        fprintf(file, "%i ", color_value);
+        return char_count+(len_int(color_value)+1);
+    } else {
+        fprintf(file, "\n");
+        return 0;
+    }
+};
+
 void canvasToPpm(Canvas *canvas, char *fileName) {
     char cwd[1024] = {0};
     getcwd(cwd, sizeof(cwd));
@@ -58,22 +70,19 @@ void canvasToPpm(Canvas *canvas, char *fileName) {
     fprintf(fptr, "%i %i\n", canvas->width, canvas->height);
     fprintf(fptr, "255\n\n");
     int count = 0;
+    int char_count = 0;
     for(int i = 0; i < (canvas->width*canvas->height); i++) {
         int red = round(canvas->colors[i].red * 255);
         int green = round(canvas->colors[i].green * 255);
         int blue = round(canvas->colors[i].blue * 255);
-        printf("formatted color value red: %i\n", red);
-        printf("formatted color value green: %i\n", green);
-        printf("formatted color value blue: %i\n", blue);
         int red_c = clamp(red, 0, 255);
         int green_c = clamp(green, 0, 255);
         int blue_c = clamp(blue, 0, 255);
-        printf("clamped color value red: %i\n", red_c);
-        printf("clamped color value green: %i\n", green_c);
-        printf("clamped color value blue: %i\n", blue_c);
-        fprintf(fptr, "%i %i %i ", red_c, green_c, blue_c);
-        printf("modulo: %i index: %i\n", i%(canvas->width-1), i);
+        char_count = printColorToFile(fptr, red_c, char_count);
+        char_count = printColorToFile(fptr, green_c, char_count);
+        char_count = printColorToFile(fptr, blue_c, char_count);
         if ( count == canvas->width-1 ) {
+            char_count=0;
             count = 0;
             fprintf(fptr, "\n");
         } else {

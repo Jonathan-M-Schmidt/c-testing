@@ -72,6 +72,37 @@ int testPpmPixelDataCreation() {
     expect(strcmp(ppm, expected) == 0, "creates correct pixel data");
 };
 
+int testSplittingLongLines() {
+    Canvas *canvas = createCanvas(10, 2);
+    for(int y = 1; y<= 2; y++){
+        for(int x = 1; x<=10; x++){
+            writePixel(canvas, x, y, createColor(1, 0.8, 0.6));
+        }
+    }
+    canvasToPpm(canvas, "line_splitting");
+    char ppm[1024] = {0};
+    FILE *file_res;
+
+    if ((file_res = fopen("F:\\prog\\c\\ray-tracer\\img\\line_splitting.ppm","r")) == NULL){
+        printf("Error! opening file");
+        exit(1);
+    }
+
+    fread(ppm, 1024, 1, file_res);
+
+    char ppm_expected[1024] = {0};
+    FILE *file_res_expected;
+
+    if ((file_res_expected = fopen("F:\\prog\\c\\ray-tracer\\test\\line_splitting_expected.ppm","r")) == NULL){
+        printf("Error! opening file");
+        exit(1);
+    }
+
+    fread(ppm_expected, 1024, 1, file_res_expected);
+
+    expect(strcmp(ppm, ppm_expected) == 0, "creates correct line breaks");
+}
+
 int main() {;
     runTestSuit(
         "should create correct canvas with default colors\n",
@@ -88,6 +119,10 @@ int main() {;
     runTestSuit(
         "should create correct ppm pixel data from canvas\n",
         testPpmPixelDataCreation
+    );
+    runTestSuit(
+        "should split lines when over 70 chars\n",
+        testSplittingLongLines
     );
     
     finishTests();
