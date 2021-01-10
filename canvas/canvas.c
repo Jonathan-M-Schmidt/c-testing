@@ -30,6 +30,9 @@ Canvas* createCanvas(int width, int height) {
 };
 
 void writePixel(Canvas *canvas, int x, int y, Color color) {
+    if ( x < 1 || x > canvas->width || y < 1 || y > canvas->height ) {
+        return;
+    }
     int position = canvas->width * (y-1) + (x-1);
     canvas->colors[position] = color;
 }
