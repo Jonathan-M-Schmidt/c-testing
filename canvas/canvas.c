@@ -46,7 +46,7 @@ int printColorToFile(FILE *file, int color_value, int char_count ) {
         fprintf(file, "%i ", color_value);
         return char_count+(len_int(color_value)+1);
     } else {
-        fprintf(file, "\n");
+        fprintf(file, "\n%i ", color_value);
         return 0;
     }
 };
